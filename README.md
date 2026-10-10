@@ -5,9 +5,11 @@
 
 GRPCMicroService is a Maven-based starter project demonstrating how to build and run a gRPC microservice using Java 17, Micronaut 4, gRPC Java, and Protocol Buffers.
 
-It provides a structured starting point for developers who want to learn gRPC or use an existing project as the foundation for their own applications.
+It provides a structured, ready-to-use starting point for developers who want to learn gRPC or use an existing project as the foundation for their own applications.
 
 **Spend less time setting up the project and more time building your gRPC services.**
+
+The project can be imported into **Eclipse IDE** as an existing Maven project, allowing you to explore the code, run the application, and customize the service.
 
 [**Get the Complete Starter Kit**](https://frekost.gumroad.com/l/grpc2micronaut)
 
@@ -33,6 +35,7 @@ The complete starter kit includes:
 - A client implementation and example runner.
 - An automated service test.
 - Eleven technical documentation guides.
+- Eclipse IDE compatibility through Maven project configuration.
 - Instructions for building, running, and troubleshooting the application.
 
 ## 📁 Project Structure
@@ -95,14 +98,14 @@ GRPCMicroService/
 
 ### Requirements
 
-- JDK 17 or compatible.
-- Apache Maven.
+- **JDK 17** or compatible.
+- **Apache Maven**.
 - Internet access for Maven dependency resolution.
-- An IDE such as Eclipse or IntelliJ IDEA (optional).
+- **Eclipse IDE** or another compatible Java IDE (optional).
 
 ### Build and Verify
 
-After obtaining the complete project source package, open a terminal in the project directory and run:
+After obtaining and extracting the complete project package, open a terminal in the project root directory and run:
 
 ```bash
 mvn clean verify
@@ -110,13 +113,27 @@ mvn clean verify
 
 This command cleans the build output, generates the required sources, compiles the project, and runs the configured verification lifecycle, including tests.
 
-### Run the Application
+### Import and Run in Eclipse IDE
 
-Import the project into your preferred Java IDE, or follow the launch instructions in the included documentation.
+The project is configured as a Maven project and can be imported into Eclipse IDE.
+
+1. Extract the downloaded project package.
+2. Open Eclipse IDE.
+3. Select **File → Import**.
+4. Choose **Maven → Existing Maven Projects**.
+5. Browse to the extracted project directory.
+6. Select the project and complete the import.
+7. Allow Maven to resolve dependencies and generate the required sources.
+8. Open `Application.java`.
+9. Right-click the file and select **Run As → Java Application**.
+
+Make sure Eclipse is configured to use JDK 17 or a compatible JDK.
 
 The sample application starts a gRPC server on port `50052` and demonstrates a client request to the `Greeter` service.
 
-Refer to the technical documentation for configuration details and troubleshooting.
+**Note:** Maven dependency resolution and source generation require internet access. The exact Eclipse menus may vary slightly by version and installed plugins.
+
+Refer to the included technical documentation for configuration details and troubleshooting.
 
 ## 📚 Documentation
 
@@ -134,7 +151,7 @@ The included documentation consists of eleven technical guides covering:
 10. Maven build.
 11. Running and troubleshooting.
 
-These guides help developers understand the project structure and follow the main steps required to build and run the application.
+These guides explain the project architecture and help developers build, run, test, and customize the application.
 
 ## 📄 License
 
