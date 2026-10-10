@@ -27,6 +27,72 @@ It provides a practical starting point for developers who want to explore gRPC o
 - Technical documentation.
 - Instructions for building and running the project.
 
+📁 Project Structure
+
+The project follows a Maven-standard layout and separates application code, gRPC protocol definitions, configuration, tests, and technical documentation.
+
+GRPCMicroService/
+├── documentation/
+│   ├── 01-project-overview.md
+│   ├── 02-project-structure.md
+│   ├── 03-grpc-protocol.md
+│   ├── 04-greeter-service-implementation.md
+│   ├── 05-application-bootstrap.md
+│   ├── 06-application-configuration.md
+│   ├── 07-grpc-client.md
+│   ├── 08-client-runner.md
+│   ├── 09-testing.md
+│   ├── 10-maven-build.md
+│   ├── 11-running-and-troubleshooting.md
+│   └── README.md
+├── src/
+│   ├── main/
+│   │   ├── java/org/frekost/micro/
+│   │   │   ├── Application.java
+│   │   │   ├── client/
+│   │   │   │   ├── HelloClient.java
+│   │   │   │   └── HelloClientRunner.java
+│   │   │   └── services/grpc/greeter/
+│   │   │       └── HelloServiceImpl.java
+│   │   ├── proto/
+│   │   │   └── helloworld.proto
+│   │   └── resources/
+│   │       └── application.properties
+│   └── test/
+│       ├── java/org/frekost/test/micro/
+│       │   └── HelloServiceTest.java
+│       └── resources/
+├── pom.xml
+├── README.md
+├── LICENSE
+└── THIRD-PARTY-NOTICES.txt
+
+Key Components
+
+- "Application.java" — Entry point for the Micronaut application.
+- "HelloServiceImpl.java" — Implements the gRPC Greeter service.
+- "HelloClient.java" — Contains the gRPC client logic.
+- "HelloClientRunner.java" — Runs the example client as part of the application.
+- "helloworld.proto" — Defines the gRPC service contract and its message types.
+- "application.properties" — Contains application and gRPC configuration.
+- "HelloServiceTest.java" — Tests the service behavior.
+- "pom.xml" — Defines Maven dependencies, build plugins, and Protocol Buffers source generation.
+- "documentation/" — Provides eleven technical guides covering architecture, implementation, configuration, testing, building, and troubleshooting.
+
+Build and Verify
+
+From the project root, run:
+
+mvn clean verify
+
+This command cleans the build output, generates the required sources, compiles the project, and runs the configured verification lifecycle, including tests.
+
+Want the complete starter kit?
+
+The full source project, tests, Maven configuration, and technical documentation are available here:
+
+"Get GRPCMicroService on Gumroad" (https://frekost.gumroad.com/l/grpc2micronaut)
+
 ## 🚀 Getting Started
 
 ### Requirements
