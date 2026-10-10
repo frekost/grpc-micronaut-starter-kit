@@ -169,7 +169,7 @@ The complete commercial package includes the project source code, Maven build co
 
 **Product:** GRPCMicroService 1.0.0  
 **Publisher:** frekost  
-**Price:** $9 USD
+**Price:** $3 USD
 
 ### 👉 [Get GRPCMicroService on Gumroad](https://frekost.gumroad.com/l/grpc2micronaut)
 
