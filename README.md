@@ -166,4 +166,4 @@ Please review the product description and license before purchasing.
 
 ---
 
-**Built for Java developers by Frekost.**
+**Built for Java developers by frekost.**
