@@ -151,7 +151,7 @@ Looking for a structured starting point for your next Java gRPC project?
 The complete commercial package includes the project source code, Maven build configuration, gRPC definitions, example implementation, tests, and technical documentation.
 
 **Product:** GRPCMicroService 1.0.0  
-**Publisher:** Frekost  
+**Publisher:** frekost  
 **Price:** $9 USD
 
 ### 👉 [Get GRPCMicroService on Gumroad](https://frekost.gumroad.com/l/grpc2micronaut)
