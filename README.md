@@ -3,33 +3,41 @@
 
 **Build your next Java gRPC service on a solid foundation.**
 
-GRPCMicroService is a Maven-based starter project demonstrating how to build and run a gRPC microservice with Java 17, Micronaut 4, and Protocol Buffers.
+GRPCMicroService is a Maven-based starter project demonstrating how to build and run a gRPC microservice using Java 17, Micronaut 4, gRPC Java, and Protocol Buffers.
 
-It provides a practical starting point for developers who want to explore gRPC or use a structured project as the foundation for their own applications.
+It provides a structured starting point for developers who want to learn gRPC or use an existing project as the foundation for their own applications.
+
+**Spend less time setting up the project and more time building your gRPC services.**
+
+[**Get the Complete Starter Kit**](https://frekost.gumroad.com/l/grpc2micronaut)
+
+---
 
 ## 🛠 Technology Stack
 
-- Java 17
-- Micronaut 4
-- gRPC Java
-- Protocol Buffers
-- Apache Maven
-- JUnit
+- **Java 17** — Application development.
+- **Micronaut 4** — Application framework.
+- **gRPC Java** — Remote procedure calls.
+- **Protocol Buffers** — Service and message definitions.
+- **Apache Maven** — Dependency management and build automation.
+- **JUnit** — Automated testing.
 
 ## ✨ What's Included
 
-- A `Greeter` gRPC service implementation.
+The complete starter kit includes:
+
+- A working gRPC `Greeter` service implementation.
 - Protocol Buffer definitions for the service API.
 - Maven configuration for generating Java and gRPC source files.
 - gRPC server and client configuration.
-- A client runner demonstrating a request and response.
-- An integration test.
-- Technical documentation.
-- Instructions for building and running the project.
+- A client implementation and example runner.
+- An automated service test.
+- Eleven technical documentation guides.
+- Instructions for building, running, and troubleshooting the application.
 
 ## 📁 Project Structure
 
-The project follows a Maven-standard layout and separates application code, gRPC protocol definitions, configuration, tests, and technical documentation.
+The project follows a Maven-standard layout, separating application code, protocol definitions, configuration, tests, and technical documentation.
 
 ```text
 GRPCMicroService/
@@ -71,31 +79,17 @@ GRPCMicroService/
 
 ### Key Components
 
-- **`Application.java`** — Entry point for the Micronaut application.
-- **`HelloServiceImpl.java`** — Implements the gRPC Greeter service.
-- **`HelloClient.java`** — Contains the gRPC client logic.
-- **`HelloClientRunner.java`** — Runs the example client as part of the application.
-- **`helloworld.proto`** — Defines the gRPC service contract and its message types.
-- **`application.properties`** — Contains application and gRPC configuration.
-- **`HelloServiceTest.java`** — Tests the service behavior.
-- **`pom.xml`** — Defines Maven dependencies, build plugins, and Protocol Buffers source generation.
-- **`documentation/`** — Provides eleven technical guides covering architecture, implementation, configuration, testing, building, and troubleshooting.
-
-### Build and Verify
-
-From the project root, run:
-
-```bash
-mvn clean verify
-```
-
-This command cleans the build output, generates the required sources, compiles the project, and runs the configured verification lifecycle, including tests.
-
-**Want the complete starter kit?**
-
-The full source project, tests, Maven configuration, and technical documentation are available here:
-
-[**Get GRPCMicroService on Gumroad**](https://frekost.gumroad.com/l/grpc2micronaut)
+| Component | Description |
+|---|---|
+| `Application.java` | Bootstraps the Micronaut application. |
+| `HelloServiceImpl.java` | Implements the gRPC Greeter service. |
+| `HelloClient.java` | Contains the gRPC client logic. |
+| `HelloClientRunner.java` | Runs the example client. |
+| `helloworld.proto` | Defines the gRPC service contract and message types. |
+| `application.properties` | Contains application and gRPC configuration. |
+| `HelloServiceTest.java` | Tests the service behavior. |
+| `pom.xml` | Defines Maven dependencies, build plugins, and Protocol Buffers source generation. |
+| `documentation/` | Contains eleven technical guides covering the project and its development workflow. |
 
 ## 🚀 Getting Started
 
@@ -114,52 +108,61 @@ After obtaining the complete project source package, open a terminal in the proj
 mvn clean verify
 ```
 
-This command cleans the project, generates the required sources, compiles the code, and runs the verification lifecycle, including the configured tests.
+This command cleans the build output, generates the required sources, compiles the project, and runs the configured verification lifecycle, including tests.
 
 ### Run the Application
 
-Import the project into your preferred Java IDE, or use the launch instructions in the included documentation.
+Import the project into your preferred Java IDE, or follow the launch instructions in the included documentation.
 
-The sample application starts a gRPC server on port `50052` and demonstrates a request to the `Greeter` service.
+The sample application starts a gRPC server on port `50052` and demonstrates a client request to the `Greeter` service.
 
-Check the full project documentation for configuration details and troubleshooting.
-
-## 📦 Get the Complete Starter Kit
-
-**Looking for the complete source project and documentation?**
-
-The commercial package includes the project source code, Maven build configuration, gRPC definitions, example implementation, tests, and technical documentation.
-
-### 👉 [Get GRPCMicroService on Gumroad](https://frekost.gumroad.com/l/grpc2micronaut)
-
-**Product:** GRPCMicroService 1.0.0  
-**Publisher:** Frekost
-
-Please review the product page and the included license before purchasing.
+Refer to the technical documentation for configuration details and troubleshooting.
 
 ## 📚 Documentation
 
-The complete documentation is included with the commercial package. It covers:
+The included documentation consists of eleven technical guides covering:
 
-- Project structure and architecture.
-- The gRPC protocol definition.
-- The Greeter service implementation.
-- Application startup and configuration.
-- Client configuration and execution.
-- Testing and Maven build instructions.
-- Running the application and troubleshooting.
+1. Project overview.
+2. Project structure.
+3. gRPC protocol definitions.
+4. Greeter service implementation.
+5. Application bootstrap.
+6. Application configuration.
+7. gRPC client implementation.
+8. Client runner.
+9. Testing.
+10. Maven build.
+11. Running and troubleshooting.
+
+These guides help developers understand the project structure and follow the main steps required to build and run the application.
 
 ## 📄 License
 
-The complete commercial package is distributed under the terms of the `LICENSE` file included with the product. Usage and modification are subject to that license.
+GRPCMicroService is distributed under the commercial license included in the purchased package.
 
-Third-party dependencies and components may be subject to separate licenses.
+The license permits use and modification of the project, including as a foundation for commercial applications, subject to its terms. Redistribution or resale of the original project as a standalone product is not permitted.
+
+Third-party dependencies and components may be subject to separate licenses. Please review the included `LICENSE` file before use.
+
+## 📦 Get the Complete Starter Kit
+
+Looking for a structured starting point for your next Java gRPC project?
+
+The complete commercial package includes the project source code, Maven build configuration, gRPC definitions, example implementation, tests, and technical documentation.
+
+**Product:** GRPCMicroService 1.0.0  
+**Publisher:** Frekost  
+**Price:** $9 USD
+
+### 👉 [Get GRPCMicroService on Gumroad](https://frekost.gumroad.com/l/grpc2micronaut)
+
+Please review the product description and license before purchasing.
 
 ## ⚠️ Important Notes
 
-- This repository is a product information page, not the complete commercial source package.
-- The complete source code is available through the product page above.
-- The starter kit is intended as a foundation for development and learning. Review security, configuration, observability, and operational requirements before using it in production.
+- This repository is a product information page and does not contain the complete commercial source package.
+- The complete starter kit is available through the product page above.
+- The project is intended as a development and learning foundation. Review security, configuration, observability, and operational requirements before using it in production.
 
 ---
 
