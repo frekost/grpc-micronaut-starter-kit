@@ -11,7 +11,28 @@ It provides a structured, ready-to-use starting point for developers who want to
 
 The project can be imported into **Eclipse IDE** as an existing Maven project, allowing you to explore the code, run the application, and customize the service.
 
-[**Get the Complete Starter Kit**](https://frekost.gumroad.com/l/grpc2micronaut)
+---
+
+## 📚 Quick Start Guide
+
+New to the project? Get started with our step-by-step online guide.
+
+### 👉 [Read the GRPCMicroService Quick Start Guide](https://frekost.github.io/grpc-micronaut-starter-kit/quick-start/)
+
+The guide walks you through:
+
+- Importing the Maven project into Eclipse IDE.
+- Building the project and verifying the Maven build.
+- Running the Micronaut application.
+- Checking the application console and gRPC configuration.
+
+Follow the guide to get familiar with the project setup and development workflow.
+
+---
+
+## 💎 Get the Complete Starter Kit
+
+[**Get the Complete Starter Kit on Gumroad →**](https://frekost.gumroad.com/l/grpc2micronaut)
 
 ---
 
@@ -111,7 +132,7 @@ After obtaining and extracting the complete project package, open a terminal in 
 mvn clean compile test
 ```
 
-This command cleans the build output, generates the required sources, compiles the project, and runs the configured verification lifecycle, including tests.
+This command cleans the build output, generates the required sources, compiles the project, and runs the configured tests.
 
 ### Import and Run in Eclipse IDE
 
@@ -133,11 +154,11 @@ The sample application starts a gRPC server on port `50052` and demonstrates a c
 
 **Note:** Maven dependency resolution and source generation require internet access. The exact Eclipse menus may vary slightly by version and installed plugins.
 
-Refer to the included technical documentation for configuration details and troubleshooting.
+For detailed setup instructions, see the [Quick Start Guide](https://frekost.github.io/grpc-micronaut-starter-kit/quick-start/).
 
-## 📚 Documentation
+## 📚 Technical Documentation
 
-The included documentation consists of eleven technical guides covering:
+The complete starter kit includes eleven technical guides covering:
 
 1. Project overview.
 2. Project structure.
@@ -151,7 +172,7 @@ The included documentation consists of eleven technical guides covering:
 10. Maven build.
 11. Running and troubleshooting.
 
-These guides explain the project architecture and help developers build, run, test, and customize the application.
+These guides explain the project architecture and help developers understand, test, and customize the application.
 
 ## 📄 License
 
