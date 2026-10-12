@@ -3,7 +3,7 @@
 
 **Build your next Java gRPC service on a solid foundation.**
 
-GRPCMicroService is a Maven-based starter project demonstrating how to build and run a gRPC microservice using Java 17, Micronaut 4, gRPC Java, and Protocol Buffers.
+GRPCMicroService is a Maven-based starter project demonstrating how to build and run a gRPC microservice using Java 21, Micronaut 4, gRPC Java, and Protocol Buffers.
 
 It provides a structured, ready-to-use starting point for developers who want to learn gRPC or use an existing project as the foundation for their own applications.
 
@@ -17,7 +17,7 @@ The project can be imported into **Eclipse IDE** as an existing Maven project, a
 
 ## 🛠 Technology Stack
 
-- **Java 17** — Application development.
+- **Java 21** — Application development.
 - **Micronaut 4** — Application framework.
 - **gRPC Java** — Remote procedure calls.
 - **Protocol Buffers** — Service and message definitions.
@@ -98,7 +98,7 @@ GRPCMicroService/
 
 ### Requirements
 
-- **JDK 17** or compatible.
+- **JDK 21** or compatible.
 - **Apache Maven**.
 - Internet access for Maven dependency resolution.
 - **Eclipse IDE** or another compatible Java IDE (optional).
@@ -127,7 +127,7 @@ The project is configured as a Maven project and can be imported into Eclipse ID
 8. Open `Application.java`.
 9. Right-click the file and select **Run As → Java Application**.
 
-Make sure Eclipse is configured to use JDK 17 or a compatible JDK.
+Make sure Eclipse is configured to use JDK 21 or a compatible JDK.
 
 The sample application starts a gRPC server on port `50052` and demonstrates a client request to the `Greeter` service.
 
