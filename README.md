@@ -108,7 +108,7 @@ GRPCMicroService/
 After obtaining and extracting the complete project package, open a terminal in the project root directory and run:
 
 ```bash
-mvn clean verify
+mvn clean compile test
 ```
 
 This command cleans the build output, generates the required sources, compiles the project, and runs the configured verification lifecycle, including tests.
