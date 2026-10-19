@@ -224,7 +224,7 @@ The `documentation` directory contains the technical documentation for the proje
 | [10 - Maven Build](10-maven-build.md) | Dependencies, plugins, and build lifecycle |
 | [11 - Running and Troubleshooting](11-running-and-troubleshooting.md) | Running the application and troubleshooting common issues |
 
-A visual introduction is also available in the [Quick Start Guide](quick-start/index.html).
+A visual introduction is also available in the [Quick Start Guide](/grpc-micronaut-starter-kit/quick-start/).
 
 ## 11. Scope
 
