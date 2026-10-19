@@ -1,0 +1,280 @@
+GRPCMicroService - Third-Party Notices
+======================================
+
+Project: GRPCMicroService
+Version: 1.0.0
+Copyright (c) 2026 Frekost
+
+PURPOSE
+-------
+
+This document identifies third-party dependencies reported by the
+Maven license plugin for GRPCMicroService.
+
+GRPCMicroService uses third-party libraries and frameworks, including
+Micronaut, Micronaut gRPC, gRPC Java, Protocol Buffers, Netty, and
+other supporting components.
+
+The licenses of these third-party components remain applicable to
+their respective components. The commercial license for the original
+GRPCMicroService project does not replace or override third-party
+licenses.
+
+The dependency inventory below is based on the Maven dependency and
+license reports generated for this project. It is not a substitute
+for reviewing the applicable license texts and notices of each
+distributed component.
+
+LICENSE REFERENCES
+------------------
+
+Apache License 2.0:
+https://www.apache.org/licenses/LICENSE-2.0
+
+BSD 3-Clause License:
+https://opensource.org/license/bsd-3-clause
+
+MIT License:
+https://opensource.org/license/mit
+
+Eclipse Public License 2.0:
+https://www.eclipse.org/legal/epl-2.0/
+
+GNU Lesser General Public License:
+https://www.gnu.org/licenses/lgpl-3.0.html
+
+Common Development and Distribution License:
+https://opensource.org/license/cddl-1-0
+
+GNU General Public License:
+https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+
+
+1. APACHE LICENSE 2.0
+---------------------
+
+The Maven license report identifies the following components as
+distributed under Apache License 2.0 or Apache-2.0:
+
+Google and supporting libraries:
+- com.google.android:annotations:4.1.1.4
+- com.google.api.grpc:proto-google-common-protos:2.29.0
+- com.google.code.findbugs:jsr305:3.0.2
+- com.google.code.gson:gson:2.10.1
+- com.google.errorprone:error_prone_annotations:2.23.0
+- com.google.guava:failureaccess:1.0.1
+- com.google.guava:guava:32.1.3-android
+- com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava
+- com.google.j2objc:j2objc-annotations:2.8
+
+gRPC Java:
+- io.grpc:grpc-api:1.64.0
+- io.grpc:grpc-context:1.64.0
+- io.grpc:grpc-core:1.64.0
+- io.grpc:grpc-netty:1.64.0
+- io.grpc:grpc-protobuf:1.64.0
+- io.grpc:grpc-protobuf-lite:1.64.0
+- io.grpc:grpc-stub:1.64.0
+- io.grpc:grpc-util:1.64.0
+
+Micronaut and Micronaut gRPC:
+- io.micronaut:micronaut-aop:4.0.0
+- io.micronaut:micronaut-buffer-netty:4.0.0
+- io.micronaut:micronaut-context:4.0.0
+- io.micronaut:micronaut-context-propagation:4.0.0
+- io.micronaut:micronaut-core:4.0.0
+- io.micronaut:micronaut-core-processor:4.0.0
+- io.micronaut:micronaut-core-reactive:4.0.0
+- io.micronaut:micronaut-discovery-core:4.0.0
+- io.micronaut:micronaut-http:4.0.0
+- io.micronaut:micronaut-inject:4.0.0
+- io.micronaut:micronaut-inject-java:4.0.0
+- io.micronaut:micronaut-retry:4.0.0
+- io.micronaut:micronaut-runtime:4.0.0
+- io.micronaut.grpc:micronaut-grpc-annotation:4.0.0
+- io.micronaut.grpc:micronaut-grpc-client-runtime:4.0.0
+- io.micronaut.grpc:micronaut-grpc-health:4.0.0
+- io.micronaut.grpc:micronaut-grpc-opentracing:4.0.0
+- io.micronaut.grpc:micronaut-grpc-runtime:4.0.0
+- io.micronaut.grpc:micronaut-grpc-server-runtime:4.0.0
+- io.micronaut.reactor:micronaut-reactor:3.0.0-M10
+- io.micronaut.validation:micronaut-validation:4.0.0
+
+Netty:
+- io.netty:netty-buffer:4.1.94.Final
+- io.netty:netty-codec:4.1.100.Final
+- io.netty:netty-codec-http:4.1.100.Final
+- io.netty:netty-codec-http2:4.1.100.Final
+- io.netty:netty-codec-socks:4.1.100.Final
+- io.netty:netty-common:4.1.100.Final
+- io.netty:netty-handler:4.1.100.Final
+- io.netty:netty-handler-proxy:4.1.100.Final
+- io.netty:netty-resolver:4.1.100.Final
+- io.netty:netty-transport:4.1.100.Final
+- io.netty:netty-transport-native-unix-common:4.1.100.Final
+
+Other components:
+- io.perfmark:perfmark-api:0.26.0
+- io.projectreactor:reactor-core:3.5.7
+- jakarta.inject:jakarta.inject-api:2.0.1
+- jakarta.validation:jakarta.validation-api:3.0.2
+- org.apiguardian:apiguardian-api:1.1.2 (test dependency)
+- org.opentest4j:opentest4j:1.3.0 (test dependency)
+
+The license report should be checked against the license and NOTICE
+files supplied by the relevant upstream projects.
+
+
+2. BSD 3-CLAUSE LICENSE
+-----------------------
+
+The Maven license report identifies these components under
+BSD-3-Clause:
+
+- com.google.protobuf:protobuf-java:3.25.1
+- org.ow2.asm:asm:9.5
+- org.ow2.asm:asm-commons:9.5
+- org.ow2.asm:asm-tree:9.5
+
+License reference:
+https://opensource.org/license/bsd-3-clause
+
+Redistribution conditions and required notices must be observed
+when distributing these components or binaries containing them.
+
+
+3. MIT AND MIT-0 LICENSES
+-------------------------
+
+The Maven license report identifies these components under MIT
+or MIT-0:
+
+- org.checkerframework:checker-qual:3.37.0
+- org.codehaus.mojo:animal-sniffer-annotations:1.23
+- org.reactivestreams:reactive-streams:1.0.4
+- org.slf4j:slf4j-api:2.0.7
+- org.slf4j:slf4j-simple:2.0.17
+
+The reported license for reactive-streams is MIT-0. The other
+components listed in this section were reported as MIT or MIT
+License.
+
+License references:
+https://opensource.org/license/mit
+https://opensource.org/license/mit-0
+
+Consult the individual upstream license files for the exact
+applicable terms.
+
+
+4. ECLIPSE PUBLIC LICENSE 2.0
+----------------------------
+
+The Maven license report identifies these test dependencies under
+Eclipse Public License 2.0:
+
+- org.junit.jupiter:junit-jupiter-api:5.10.2
+- org.junit.jupiter:junit-jupiter-engine:5.10.2
+- org.junit.platform:junit-platform-commons:1.10.2
+- org.junit.platform:junit-platform-engine:1.10.2
+
+License reference:
+https://www.eclipse.org/legal/epl-2.0/
+
+These components are reported with Maven scope "test".
+
+
+5. JAKARTA ANNOTATION API
+-------------------------
+
+Component:
+- jakarta.annotation:jakarta.annotation-api:2.1.1
+
+The Maven license report identifies the following license options:
+
+- Eclipse Public License 2.0
+- GNU General Public License, version 2, with Classpath Exception
+
+Review the official distribution and license files for this
+specific version to confirm the applicable terms.
+
+
+6. JAVAX ANNOTATION API
+-----------------------
+
+Component:
+- javax.annotation:javax.annotation-api:1.3.2
+
+The Maven license report identifies:
+
+- Common Development and Distribution License
+- GNU General Public License, version 2, with Classpath Exception
+
+Review the upstream license files and applicable notices before
+redistributing this component or binaries containing it.
+
+
+7. JAVAPARSER
+-------------
+
+Components:
+- com.github.javaparser:javaparser-core:3.25.4
+- com.github.javaparser:javaparser-symbol-solver-core:3.25.4
+
+The Maven license report lists both Apache License 2.0 and GNU
+Lesser General Public License for these components.
+
+The precise licensing options and applicable conditions must be
+confirmed against the official license files for version 3.25.4.
+
+Do not assume that the report alone establishes which license
+applies to every use or redistribution scenario.
+
+Upstream project:
+https://github.com/javaparser/javaparser
+
+
+8. TEST DEPENDENCIES
+--------------------
+
+The following additional components are reported with Maven scope
+"test":
+
+- io.micronaut.test:micronaut-test-core:4.0.0
+- io.micronaut.test:micronaut-test-junit5:4.0.0
+
+The Maven report identifies these components under Apache License
+2.0.
+
+Other test-scoped components are listed in the relevant license
+sections above.
+
+Their inclusion in a particular distribution depends on the
+contents of that distribution.
+
+
+9. SCOPE AND DISTRIBUTION NOTES
+-------------------------------
+
+This inventory is based on Maven dependency and license reports.
+It does not, by itself, establish that every listed component is
+physically included in a particular release archive.
+
+The Maven scopes "compile", "runtime", and "test" describe how
+dependencies are used by the build. They do not alone determine
+every redistribution obligation.
+
+A source-only project archive may contain no third-party dependency
+binaries, while a packaged application or an archive containing
+dependency JARs may redistribute them.
+
+Generated source files may also contain code or notices originating
+from protocol definitions or code-generation tools. Such files
+should be reviewed separately where applicable.
+
+Before redistributing third-party binaries, review the applicable
+license text, copyright notices, attribution requirements, and any
+upstream NOTICE files. Preserve required notices and include license
+texts when required by the relevant license.
+
+This document is an informational inventory and is not legal advice.
