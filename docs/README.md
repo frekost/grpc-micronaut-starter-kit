@@ -42,7 +42,7 @@ For a brief introduction to the project, see the [root README](../README.md).
 
 ### Quick Start
 
-A visual quick-start guide is available at [Quick Start Guide]([Read the GRPCMicroService Quick Start Guide](https://frekost.github.io/grpc-micronaut-starter-kit/quick-start/).
+A visual quick-start guide is available at [Quick Start Guide](https://frekost.github.io/grpc-micronaut-starter-kit/quick-start/).
 
 It complements the technical documentation with introductory instructions and screenshots.
 
