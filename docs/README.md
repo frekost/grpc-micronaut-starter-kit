@@ -4,9 +4,9 @@
 
 This directory contains the technical documentation for the `GRPCMicroService` project.
 
-The project is a Java 21 application built with Micronaut, gRPC, and Protocol Buffers. It demonstrates how to define a gRPC service, implement the server, invoke the service through a client, handle application errors, and test the expected behavior.
+The project is a Java 21 application built with Micronaut, gRPC, and Protocol Buffers. It demonstrates how to define a gRPC service, implement the server, invoke the service through a client, handle application errors, log server calls, and test the expected behavior.
 
-The project also provides a foundation for developing reusable Micronaut gRPC services, with centralized error handling and automated tests.
+The project also provides a foundation for developing reusable Micronaut gRPC services, with centralized error handling, structured call logging, and automated tests.
 
 The documentation is organized into numbered chapters, progressing from the project overview to implementation details, testing, build configuration, execution, and troubleshooting.
 
@@ -36,13 +36,13 @@ For a brief introduction to the project, see the [root README](../README.md).
 
 | Document | Description |
 |---|---|
-| [09 - Testing](09-testing.md) | Integration tests, request validation, and gRPC error handling |
+| [09 - Testing](09-testing.md) | Service tests, error-handling tests, logging interceptor tests, and test execution |
 | [10 - Maven Build](10-maven-build.md) | Dependencies, plugins, Protocol Buffers generation, and build lifecycle |
-| [11 - Running and Troubleshooting](11-running-and-troubleshooting.md) | Build and execution instructions, configuration checks, and troubleshooting |
+| [11 - Running and Troubleshooting](11-running-and-troubleshooting.md) | Build and execution instructions, logging output, configuration checks, and troubleshooting |
 
 ### Quick Start
 
-A visual quick-start guide is available at [Quick Start Guide](https://frekost.github.io/grpc-micronaut-starter-kit/quick-start/).
+A visual quick-start guide is available at the [Quick Start Guide](https://frekost.github.io/grpc-micronaut-starter-kit/quick-start/).
 
 It complements the technical documentation with introductory instructions and screenshots.
 
@@ -59,7 +59,7 @@ For readers who are new to the project, the recommended order is:
 7. Examine the gRPC client and client runner.
 8. Study the centralized error-handling mechanism and its tests.
 9. Review the Maven build configuration.
-10. Follow the application execution instructions and troubleshooting guidance.
+10. Follow the application execution instructions and troubleshooting guidance, including the logging output.
 
 ## 4. Technology Stack
 
@@ -74,6 +74,7 @@ The project uses the following technologies:
 | Maven | Dependency management and build automation |
 | JUnit 5 | Automated testing |
 | Micronaut Test | Integration testing support |
+| SLF4J and SLF4J Simple | Logging API and logging backend |
 
 The exact dependency and plugin versions are defined in the root `pom.xml`.
 
@@ -114,14 +115,37 @@ The intended error mappings include:
 
 The interceptor handles supported synchronous exceptions. Errors occurring in asynchronous operations or explicitly reported through `StreamObserver.onError()` may require handling at the relevant call site.
 
+### Logging
+
+`GrpcLoggingInterceptor` provides centralized logging for incoming gRPC server calls.
+
+It records method names, call completion statuses, and elapsed time using SLF4J with SLF4J Simple as the logging backend. Messages are written to the console.
+
+Successful calls are logged at `INFO` level, calls completed with a non-OK status at `WARN` level, and synchronous exceptions raised while starting a call at `ERROR` level.
+
+Request and response payloads are not logged.
+
+See [11 - Running and Troubleshooting](11-running-and-troubleshooting.md) for logging examples and execution instructions.
+
 ### Testing
 
-The test suite includes:
+The test suite covers the main service behavior, error handling, and gRPC logging.
 
-- `HelloServiceTest`, which verifies the successful Greeter response.
-- `GrpcErrorHandlingTest`, which verifies request validation and error-handling behavior.
+- **`HelloServiceTest`:** verifies the successful Greeter response.
+- **`GrpcErrorHandlingTest`:** verifies request validation and error-handling behavior.
+- **`GrpcLoggingInterceptorTest`:** tests logging interceptor behavior for successful calls, non-OK completion statuses, and synchronous exceptions raised while starting a call.
 
-The tests are located under `src/test/java/org/frekost/test/micro/`.
+The test files are located at the following paths:
+
+```text
+src/test/java/org/frekost/test/micro/HelloServiceTest.java
+src/test/java/org/frekost/test/micro/error/GrpcErrorHandlingTest.java
+src/test/java/org/frekost/test/micro/logging/GrpcLoggingInterceptorTest.java
+```
+
+These tests verify the behaviors covered by their respective test cases. The logging interceptor tests do not, by themselves, verify the actual console output or the interceptor's registration in a running Micronaut application.
+
+For test execution instructions, see [09 - Testing](09-testing.md).
 
 ## 6. Configuration
 
@@ -173,6 +197,14 @@ mvn test
 
 This command runs the tests configured for the Maven project.
 
+To run an individual test class, use the corresponding command:
+
+```bash
+mvn -Dtest=HelloServiceTest test
+mvn -Dtest=GrpcErrorHandlingTest test
+mvn -Dtest=GrpcLoggingInterceptorTest test
+```
+
 ### Verify the Project
 
 The recommended project verification command is:
@@ -181,7 +213,7 @@ The recommended project verification command is:
 mvn clean compile verify
 ```
 
-This command cleans the previous build output, executes the requested compilation and verification lifecycle phases, and runs the applicable tests and checks configured in Maven.
+This command cleans the previous build output and executes the requested Maven lifecycle phases, including compilation, tests, and applicable verification checks configured in the project.
 
 For details about dependencies, plugins, source generation, and the Maven lifecycle, see [10 - Maven Build](10-maven-build.md).
 
@@ -194,6 +226,21 @@ The application entry point is:
 The application can be started from an IDE, such as Eclipse, by running `Application.java` as a Java application.
 
 The `HelloClientRunner` bean performs an example gRPC invocation after an initial delay. The example uses the name `Micronaut`.
+
+A successful invocation returns the greeting:
+
+```text
+Hello, Micronaut!
+```
+
+The logging interceptor records the gRPC method and the completion status and duration. A successful call produces log messages similar to the following:
+
+```text
+gRPC call started: method=helloworld.Greeter/SayHello
+gRPC call completed: method=helloworld.Greeter/SayHello, status=OK, durationMs=12
+```
+
+The duration shown above is an example; the actual value depends on runtime conditions.
 
 Successful compilation and packaging do not guarantee that the application will start correctly in every environment. The server must start successfully, and the client channel must point to the correct endpoint.
 
@@ -214,6 +261,7 @@ When changing the application, keep the relevant documentation synchronized with
 - Update the client when changing request construction or invocation behavior.
 - Update `GrpcErrorMapper` and the relevant tests when changing exception-to-status mappings.
 - Update `GrpcErrorHandlingInterceptor` documentation when changing its exception-handling behavior.
+- Update `GrpcLoggingInterceptor` documentation and tests when changing logging behavior, status levels, or recorded metadata.
 - Update `application.properties` documentation when changing server or client channel settings.
 - Update the Maven build documentation when changing dependencies, plugins, or source-generation configuration.
 - Update the relevant chapters whenever implementation details or build instructions change.

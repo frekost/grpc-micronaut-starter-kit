@@ -2,11 +2,11 @@
 
 ## 1. Introduction
 
-This document describes the directory layout of the `GRPCMicroService` project and explains the purpose of its main files.
+This document describes the directory layout of the `GRPCMicroService` project and explains the purpose of its main files and packages.
 
 The project follows the conventional Maven directory structure, separating application source code, Protocol Buffers definitions, resources, tests, and build configuration.
 
-The Java package structure separates application startup, client functionality, server-side service implementation, exception definitions, and centralized gRPC error handling.
+The Java package structure separates application startup, client functionality, server-side service implementation, application exceptions, centralized gRPC error handling, and gRPC call logging.
 
 ## 2. Directory Layout
 
@@ -14,12 +14,7 @@ The relevant project structure is shown below:
 
 ```text
 GRPCMicroService/
-├── pom.xml
-├── README.md
-├── LICENSE
-├── THIRD-PARTY-NOTICES.txt
-├── documentation/
-│   ├── README.md
+├── docs/
 │   ├── 01-project-overview.md
 │   ├── 02-project-structure.md
 │   ├── 03-grpc-protocol.md
@@ -31,10 +26,18 @@ GRPCMicroService/
 │   ├── 09-testing.md
 │   ├── 10-maven-build.md
 │   ├── 11-running-and-troubleshooting.md
+│   ├── README.md
 │   └── quick-start/
 │       ├── index.html
 │       └── images/
+│           ├── application.png
+│           ├── eclipse-import.png
+│           └── verify.png
 ├── effective-pom.xml
+├── LICENSE
+├── pom.xml
+├── README.md
+├── THIRD-PARTY-NOTICES.txt
 └── src/
     ├── main/
     │   ├── java/
@@ -52,9 +55,12 @@ GRPCMicroService/
     │   │       │       ├── BusinessException.java
     │   │       │       ├── InvalidRequestException.java
     │   │       │       └── ResourceNotFoundException.java
+    │   │       ├── logging/
+    │   │       │   └── GrpcLoggingInterceptor.java
     │   │       └── services/
-    │   │           └── grpc/greeter/
-    │   │               └── HelloServiceImpl.java
+    │   │           └── grpc/
+    │   │               └── greeter/
+    │   │                   └── HelloServiceImpl.java
     │   ├── proto/
     │   │   └── helloworld.proto
     │   └── resources/
@@ -62,12 +68,15 @@ GRPCMicroService/
     └── test/
         ├── java/
         │   └── org/frekost/test/micro/
-        │       ├── GrpcErrorHandlingTest.java
-        │       └── HelloServiceTest.java
+        │       ├── HelloServiceTest.java
+        │       ├── error/
+        │       │   └── GrpcErrorHandlingTest.java
+        │       └── logging/
+        │           └── GrpcLoggingInterceptorTest.java
         └── resources/
 ```
 
-The tree shows the main project files. Maven may create additional directories and generated files during the build.
+The tree shows the main project files and the relevant source directories. Maven may create additional directories and generated files during the build.
 
 The `effective-pom.xml` file contains an effective Maven configuration, which incorporates the project's POM and applicable inherited configuration. It is not the primary build configuration; `pom.xml` remains the main file to maintain.
 
@@ -87,11 +96,11 @@ See [10 - Maven Build](10-maven-build.md) for details.
 
 The root README provides the project's main entry point.
 
-It introduces the application, lists the basic requirements, provides the quick-start command, and links to the detailed technical documentation.
+It introduces the application, lists the basic requirements, provides the quick-start instructions, and links to the technical documentation.
 
-### 3.3 `documentation/`
+### 3.3 `docs/`
 
-This directory contains the technical documentation and visual quick-start guide.
+This directory contains the technical documentation and visual Quick Start guide.
 
 Its `README.md` acts as the documentation index and links to the individual chapters.
 
@@ -153,7 +162,7 @@ See [07 - gRPC Client](07-grpc-client.md).
 
 #### `HelloClientRunner.java`
 
-This class provides an example of an automatically triggered client invocation.
+This class provides an automatically triggered example client invocation.
 
 It uses Micronaut's scheduling support to invoke the service after an initial delay of three seconds. The example call uses the name `Micronaut` and prints the returned response.
 
@@ -234,7 +243,43 @@ The error mapper associates this exception with `FAILED_PRECONDITION`.
 
 These exceptions separate application-level failure conditions from the gRPC status codes used to communicate errors to remote clients.
 
-### 4.5 Greeter Service Implementation
+### 4.5 Logging Package
+
+**Package:** `org.frekost.micro.logging`
+
+This package contains the interceptor responsible for centralized logging of incoming gRPC server calls.
+
+#### `GrpcLoggingInterceptor.java`
+
+This class implements a gRPC `ServerInterceptor`.
+
+Its responsibilities include:
+
+- Recording the start of an incoming gRPC call.
+- Recording the final gRPC status when the call closes.
+- Measuring the elapsed time of the call.
+- Logging successful calls at `INFO` level.
+- Logging calls completed with a non-OK status at `WARN` level.
+- Logging synchronous exceptions raised while starting a call at `ERROR` level and rethrowing them.
+
+The interceptor uses SLF4J for logging. The project uses SLF4J Simple as its logging backend.
+
+The interceptor records method names, completion statuses, and execution duration. It does not log request or response payloads.
+
+For example, log messages may look like this:
+
+```text
+gRPC call started: method=helloworld.Greeter/SayHello
+gRPC call completed: method=helloworld.Greeter/SayHello, status=OK, durationMs=12
+```
+
+The duration is measured using `System.nanoTime()`.
+
+This interceptor provides operational visibility into gRPC calls without logging their message contents.
+
+See [11 - Running and Troubleshooting](11-running-and-troubleshooting.md) for further information.
+
+### 4.6 Greeter Service Implementation
 
 **Package:** `org.frekost.micro.services.grpc.greeter`
 
@@ -309,11 +354,17 @@ Test source files are stored under:
 
 `src/test/java/`
 
-The current test package is:
+The test package is:
 
 `org.frekost.test.micro`
 
+The tests cover service behavior, centralized gRPC error handling, and logging.
+
 ### 7.1 `HelloServiceTest.java`
+
+**Path:**
+
+`src/test/java/org/frekost/test/micro/HelloServiceTest.java`
 
 This class contains an integration test using JUnit 5 and Micronaut Test.
 
@@ -325,7 +376,17 @@ Hello, JUnit!
 
 It verifies the successful interaction between the client and the service in the Micronaut test environment.
 
+Run this test with:
+
+```bash
+mvn -Dtest=HelloServiceTest test
+```
+
 ### 7.2 `GrpcErrorHandlingTest.java`
+
+**Path:**
+
+`src/test/java/org/frekost/test/micro/error/GrpcErrorHandlingTest.java`
 
 This class contains tests for successful requests and gRPC error handling.
 
@@ -338,6 +399,30 @@ The tests exercise scenarios such as:
 - Successful requests following invalid requests.
 
 The tests help verify that invalid input produces the expected gRPC error and that the service remains usable after an invalid request.
+
+Run this test with:
+
+```bash
+mvn -Dtest=GrpcErrorHandlingTest test
+```
+
+See [09 - Testing](09-testing.md).
+
+### 7.3 `GrpcLoggingInterceptorTest.java`
+
+**Path:**
+
+`src/test/java/org/frekost/test/micro/logging/GrpcLoggingInterceptorTest.java`
+
+This class contains tests for the gRPC logging interceptor.
+
+It belongs to the logging test package and complements the service and error-handling tests.
+
+Run this test with:
+
+```bash
+mvn -Dtest=GrpcLoggingInterceptorTest test
+```
 
 See [09 - Testing](09-testing.md).
 
@@ -370,8 +455,9 @@ The project separates configuration from Java implementation:
 - `application.properties` configures the server and client channel.
 - `GrpcErrorHandlingInterceptor` and `GrpcErrorMapper` implement centralized error handling.
 - Application exception classes represent specific failure conditions.
+- `GrpcLoggingInterceptor` records gRPC call starts, completion statuses, and elapsed time.
 - `pom.xml` defines dependencies and build operations.
-- Test sources verify expected behavior.
+- Test sources verify service behavior, error handling, and logging.
 
 This separation makes the project easier to maintain and helps identify where a change should be made.
 
@@ -386,8 +472,9 @@ The `GRPCMicroService` project follows a conventional Maven layout and separates
 | Client | `src/main/java/org/frekost/micro/client/` | Calls the gRPC service |
 | Error handling | `src/main/java/org/frekost/micro/grpc/error/` | Intercepts supported exceptions and maps errors |
 | Application exceptions | `src/main/java/org/frekost/micro/grpc/exception/` | Represents application-level failure conditions |
+| Logging | `src/main/java/org/frekost/micro/logging/` | Logs gRPC call starts, statuses, and durations |
 | Service implementation | `src/main/java/org/frekost/micro/services/grpc/greeter/` | Handles incoming RPC requests |
 | Protocol contract | `src/main/proto/` | Defines messages and RPCs |
 | Application configuration | `src/main/resources/` | Configures the server and client |
-| Tests | `src/test/java/` | Verifies service behavior and error handling |
-| Documentation | `documentation/` | Explains the project and its implementation |
+| Tests | `src/test/java/` | Verifies service behavior, error handling, and logging |
+| Documentation | `docs/` | Explains the project and its implementation |

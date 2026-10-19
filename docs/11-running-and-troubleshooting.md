@@ -18,6 +18,7 @@ The main activities covered in this document are:
 - Building and testing the application.
 - Reviewing the server and client configuration.
 - Starting the application and observing client calls.
+- Understanding gRPC logging.
 - Diagnosing common build, configuration, and connectivity problems.
 
 ## Prerequisites
@@ -289,14 +290,120 @@ The runner does not rethrow the exception or print the stack trace.
 For this reason, additional diagnostic commands or application logs
 may be needed to investigate a failure.
 
-## Step 5: Run the Test Suite
+## Step 5: Observe gRPC Logging
 
-The project contains two test classes:
+The application includes a centralized gRPC logging interceptor:
+
+`org.frekost.micro.logging.GrpcLoggingInterceptor`
+
+The interceptor implements `io.grpc.ServerInterceptor` and is
+registered as a Micronaut bean.
+
+It records information about incoming server calls without requiring
+logging statements in every service implementation.
+
+### Logged Information
+
+For each incoming gRPC call, the interceptor records:
+
+- The full gRPC method name.
+- The start of the call.
+- The final gRPC status.
+- The elapsed time until the call closes.
+
+The elapsed time is measured using `System.nanoTime()`.
+
+The interceptor uses SLF4J with SLF4J Simple as the logging backend.
+Log messages are written to the console.
+
+### Logging Levels
+
+The interceptor uses the following logging levels:
+
+| Level | Condition |
+|---|---|
+| `INFO` | Call start and successful completion |
+| `WARN` | Completion with a non-OK gRPC status |
+| `ERROR` | Synchronous exception while starting a call |
+
+Synchronous exceptions encountered while starting a call are logged
+and rethrown.
+
+The interceptor does not replace the application's error-handling
+mechanism. Asynchronous failures and errors reported through
+`StreamObserver.onError()` require appropriate handling in the
+relevant code paths.
+
+### Example Output
+
+A successful call may produce output similar to:
+
+```text
+INFO org.frekost.micro.logging.GrpcLoggingInterceptor - gRPC call started: method=helloworld.Greeter/SayHello
+INFO org.frekost.micro.logging.GrpcLoggingInterceptor - gRPC call completed: method=helloworld.Greeter/SayHello, status=OK, durationMs=12
+```
+
+The method name and duration are examples. Actual values depend on
+the service definition and execution environment.
+
+### Payload Logging
+
+The interceptor logs method names, statuses, and durations.
+
+It does not inspect or log request and response payloads.
+
+Avoid adding payload logging without considering the privacy and
+security implications of exposing application data in logs.
+
+### Logging Tests
+
+The logging interceptor test class is located at:
+
+`src/test/java/org/frekost/test/micro/logging/GrpcLoggingInterceptorTest.java`
+
+Run the dedicated tests with:
+
+```bash
+mvn -Dtest=GrpcLoggingInterceptorTest test
+```
+
+The tests cover:
+
+- Successful calls.
+- Calls completed with a non-OK status.
+- Synchronous exceptions raised while starting a call.
+
+These tests use simulated gRPC server calls. They do not directly
+assert log output or independently verify interceptor registration
+in the running Micronaut server.
+
+Run the complete project verification with:
+
+```bash
+mvn clean compile verify
+```
+
+### Current Logging Limitations
+
+The current implementation writes logs to the console through
+SLF4J Simple.
+
+File-based logging, log rotation, request correlation identifiers,
+and structured logging are not included in this implementation.
+
+For streaming RPCs, the recorded duration extends until the server
+call closes.
+
+## Step 6: Run the Test Suite
+
+The project contains the following test classes:
 
 - `HelloServiceTest`
 - `GrpcErrorHandlingTest`
+- `GrpcLoggingInterceptorTest`
 
-Both use the Micronaut and JUnit 5 testing infrastructure.
+The tests use JUnit 5, with Micronaut testing infrastructure where
+applicable.
 
 ### Run All Tests
 
@@ -348,6 +455,21 @@ Run only the error-handling tests with:
 ```bash
 mvn -Dtest=GrpcErrorHandlingTest test
 ```
+
+### Test the Logging Interceptor
+
+The logging interceptor test class is:
+
+`src/test/java/org/frekost/test/micro/logging/GrpcLoggingInterceptorTest.java`
+
+Run only these tests with:
+
+```bash
+mvn -Dtest=GrpcLoggingInterceptorTest test
+```
+
+The tests cover successful calls, non-OK completion statuses, and
+synchronous exceptions raised while starting a call.
 
 ### Recommended Verification Command
 
@@ -536,6 +658,7 @@ Check whether:
 - The service is available to the test.
 - The actual response matches the expected value.
 - Invalid requests produce the expected gRPC status.
+- The logging interceptor tests complete successfully.
 
 Run a specific test with additional Maven diagnostic output:
 
@@ -547,6 +670,12 @@ For the error-handling tests:
 
 ```bash
 mvn -e -Dtest=GrpcErrorHandlingTest test
+```
+
+For the logging interceptor tests:
+
+```bash
+mvn -e -Dtest=GrpcLoggingInterceptorTest test
 ```
 
 The `-e` option includes exception details in Maven's output.
@@ -618,6 +747,12 @@ Run the error-handling tests:
 mvn -Dtest=GrpcErrorHandlingTest test
 ```
 
+Run the logging interceptor tests:
+
+```bash
+mvn -Dtest=GrpcLoggingInterceptorTest test
+```
+
 Run the complete verification lifecycle:
 
 ```bash
@@ -661,6 +796,10 @@ configured verification steps.
 
 The gRPC server is configured on port `50052`, and the `greeter` client
 channel targets `localhost:50052`.
+
+The application includes a centralized gRPC logging interceptor that
+records method names, completion statuses, and call durations without
+logging request or response payloads.
 
 When troubleshooting, verify source generation, compilation, test
 execution, application startup, server availability, and client

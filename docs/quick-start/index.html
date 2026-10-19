@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Free Quick Start Guide for GRPCMicroService, a Java 21 gRPC starter kit built with Micronaut.">
+  <meta name="description" content="Free Quick Start Guide for GRPCMicroService, a Java 21 gRPC starter kit built with Micronaut. Learn how to import, build, run, and test the application.">
   <meta name="theme-color" content="#f5f7fb">
   <title>Quick Start | GRPCMicroService — Frekost</title>
 
@@ -427,7 +427,8 @@
 
       <p class="lead">
         A practical guide to importing GRPCMicroService into Eclipse,
-        verifying the Maven build, and running the sample gRPC service.
+        verifying the Maven build, running the sample gRPC service,
+        and observing server-side logging.
       </p>
 
       <div class="chips">
@@ -436,6 +437,7 @@
         <span class="chip">Micronaut 4</span>
         <span class="chip">Protocol Buffers</span>
         <span class="chip">gRPC Java</span>
+        <span class="chip">SLF4J</span>
       </div>
 
       <a class="cta" href="#verify">Verify the build ↓</a>
@@ -486,7 +488,7 @@
 
             <div class="mini">
               <strong>4. Observe</strong>
-              <span class="muted">Check the sample gRPC request and response.</span>
+              <span class="muted">Inspect the sample gRPC response and server logs.</span>
             </div>
           </div>
 
@@ -588,6 +590,21 @@ mvn -version</code></pre>
             This command verifies the project; it does not leave the
             application running. Start the application in the next step.
           </p>
+
+          <h3>Run an individual test class</h3>
+
+          <p>
+            You can also run a specific test class from the project root:
+          </p>
+
+          <pre><button class="copy" type="button">Copy</button><code>mvn -Dtest=HelloServiceTest test
+mvn -Dtest=GrpcErrorHandlingTest test
+mvn -Dtest=GrpcLoggingInterceptorTest test</code></pre>
+
+          <p class="muted">
+            These commands run the service, error-handling, and logging
+            interceptor test classes respectively.
+          </p>
         </section>
 
         <section id="run">
@@ -596,7 +613,7 @@ mvn -version</code></pre>
           <ol class="checklist">
             <li>In Project Explorer, locate <code>Application.java</code> in the main Java source tree.</li>
             <li>Right-click the file and choose <strong>Run As → Java Application</strong>.</li>
-            <li>Watch the Console view for startup information and the sample client output.</li>
+            <li>Watch the Console view for startup information, the sample client output, and gRPC logging messages.</li>
           </ol>
 
           <figure class="figure">
@@ -612,8 +629,8 @@ mvn -version</code></pre>
 
           <p>
             The sample configuration uses gRPC port <code>50052</code>.
-            The included client runner is scheduled to invoke the service
-            after an initial delay of three seconds.
+            The included <code>HelloClientRunner</code> bean is scheduled
+            to invoke the service after an initial delay of three seconds.
           </p>
 
           <p>Successful output should include a response similar to:</p>
@@ -625,11 +642,41 @@ mvn -version</code></pre>
             defined by the project's Protocol Buffers contract.
           </p>
 
+          <h3>Observe gRPC server logging</h3>
+
+          <p>
+            The <code>GrpcLoggingInterceptor</code> provides centralized
+            logging for intercepted gRPC server calls. It records the
+            method name when a call starts and reports the completion
+            status and elapsed time when the call finishes.
+          </p>
+
+          <p>For a successful call, the Console may contain messages similar to:</p>
+
+          <pre><button class="copy" type="button">Copy</button><code>gRPC call started: method=helloworld.Greeter/SayHello
+gRPC call completed: method=helloworld.Greeter/SayHello, status=OK, durationMs=12</code></pre>
+
+          <p class="muted">
+            The duration above is an example. The actual value depends on
+            runtime conditions.
+          </p>
+
+          <p>
+            The interceptor uses SLF4J with SLF4J Simple as the logging
+            backend. Log messages are written to the console.
+          </p>
+
+          <ul class="checklist">
+            <li>Successful calls are logged at <code>INFO</code> level.</li>
+            <li>Calls completed with a non-OK gRPC status are logged at <code>WARN</code> level.</li>
+            <li>Synchronous exceptions raised while starting a call are logged at <code>ERROR</code> level and rethrown.</li>
+            <li>Request and response payloads are not logged.</li>
+          </ul>
+
           <div class="callout">
-            The configured port printed by the application does not by
-            itself prove that the gRPC server is listening. If the response
-            does not appear, inspect the startup logs and the client error
-            message.
+            The exact duration and output formatting can vary. The examples
+            illustrate the expected message content and are not a guarantee
+            of the exact Console output in every environment.
           </div>
 
           <div class="callout">
@@ -674,7 +721,8 @@ mvn -version</code></pre>
             Check the Console for startup errors, confirm that the
             <code>greeter</code> client channel targets
             <code>localhost:50052</code>, and inspect any client error
-            messages.
+            messages. Also confirm that the server started successfully
+            before the scheduled client invocation.
           </p>
 
           <h3>A request returns INVALID_ARGUMENT</h3>
@@ -683,6 +731,29 @@ mvn -version</code></pre>
             only whitespace. The error-handling interceptor maps this
             validation failure to the gRPC status
             <code>INVALID_ARGUMENT</code>. Try a non-empty name.
+          </p>
+
+          <h3>gRPC logging messages do not appear</h3>
+          <p>
+            Confirm that the application has started successfully and
+            that the request is reaching the gRPC server. Check the Console
+            for the <code>gRPC call started</code> and
+            <code>gRPC call completed</code> messages.
+          </p>
+
+          <p>
+            If the messages are absent, verify the interceptor's
+            registration and the application's logging configuration.
+            Also confirm that you are inspecting the Console for the
+            running application rather than output from a previous run.
+          </p>
+
+          <h3>A gRPC call completes with a non-OK status</h3>
+          <p>
+            Inspect the returned gRPC status and the application logs.
+            The logging interceptor reports the completion status, while
+            the error-handling mechanism maps supported application
+            exceptions to gRPC status errors.
           </p>
 
           <h3>Eclipse reports Maven errors after a POM change</h3>
@@ -703,21 +774,30 @@ mvn -version</code></pre>
             <li>Maven configuration for Protocol Buffers and gRPC source generation.</li>
             <li>Application configuration for the gRPC server and client channel.</li>
             <li>A sample gRPC client and scheduled client runner.</li>
-            <li>A greeting-service test and gRPC error-handling tests.</li>
-            <li>Project documentation and troubleshooting notes.</li>
+            <li>Centralized handling of supported synchronous gRPC server exceptions.</li>
+            <li>Centralized gRPC call logging with method names, completion statuses, and elapsed time.</li>
+            <li>Service tests, gRPC error-handling tests, and logging interceptor tests.</li>
+            <li>Technical documentation and troubleshooting guidance.</li>
           </ul>
 
           <h3>Ready to explore?</h3>
 
           <p>
-            This free guide explains the basic workflow. Use the project's
-            README and documentation for more detail about its structure,
-            service contract, configuration, tests, and error handling.
+            This free guide explains the basic workflow. The project's
+            technical documentation provides more detail about its
+            structure, service contract, configuration, testing,
+            error handling, and logging.
           </p>
 
           <p>
             <a href="https://github.com/frekost/grpc-micronaut-starter-kit">
-              Visit the Frekost project page on GitHub
+              Visit the GRPCMicroService project on GitHub
+            </a>
+          </p>
+
+          <p>
+            <a href="https://github.com/frekost/grpc-micronaut-starter-kit/tree/main/docs">
+              Browse the technical documentation
             </a>
           </p>
 
