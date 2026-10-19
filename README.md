@@ -1,12 +1,16 @@
 # GRPCMicroService
 
-A reusable Java starter kit for building gRPC services with Micronaut and Protocol Buffers.
+A reusable Java starter kit for building gRPC microservices with Micronaut and Protocol Buffers.
+
+**Want to get started?** Get the complete starter kit and start exploring a working Java gRPC project.
+
+**[Get the Complete Starter Kit](https://frekost.gumroad.com/l/grpc2micronaut)** · **[Quick Start Guide](https://frekost.github.io/grpc-micronaut-starter-kit/quick-start/)**
 
 ## Overview
 
 This project demonstrates a Micronaut gRPC application, including:
 
-- Java 21 and Micronaut.
+- Java 21 and Micronaut 4.
 - gRPC service and client implementation.
 - Protocol Buffers code generation.
 - Centralized gRPC error handling.
@@ -27,7 +31,7 @@ mvn -version
 
 ## Quick Start
 
-Build the project and run the tests:
+Build the project and run the configured verification lifecycle:
 
 ```bash
 mvn clean compile verify
@@ -41,9 +45,17 @@ For the complete technical documentation, including project structure, configura
 
 **[Documentation Index](docs/README.md)**
 
-A visual quick-start guide is also available:
+For a visual, step-by-step introduction to the project, see:
 
 **[Quick Start Guide](https://frekost.github.io/grpc-micronaut-starter-kit/quick-start/)**
+
+## Get the Complete Starter Kit
+
+Get the complete GRPCMicroService starter kit:
+
+**[Get GRPCMicroService on Gumroad](https://frekost.gumroad.com/l/grpc2micronaut)**
+
+GRPCMicroService is a paid software starter kit. Use and modification are subject to the included license terms.
 
 ## License
 
