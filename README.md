@@ -43,7 +43,7 @@ For the complete technical documentation, including project structure, configura
 
 A visual quick-start guide is also available:
 
-**[Quick Start Guide](/grpc-micronaut-starter-kit/quick-start/)**
+**[Quick Start Guide](https://frekost.github.io/grpc-micronaut-starter-kit/quick-start/)**
 
 ## License
 
