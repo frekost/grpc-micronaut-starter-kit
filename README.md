@@ -39,11 +39,11 @@ To start the application, run `org.frekost.micro.Application` from your IDE.
 
 For the complete technical documentation, including project structure, configuration, error handling, testing, build instructions, and troubleshooting, see:
 
-**[Documentation Index](documentation/README.md)**
+**[Documentation Index](docs/README.md)**
 
 A visual quick-start guide is also available:
 
-**[Quick Start Guide](documentation/quick-start/index.html)**
+**[Quick Start Guide](docs/quick-start/index.html)**
 
 ## License
 
