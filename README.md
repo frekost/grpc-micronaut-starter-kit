@@ -1,23 +1,36 @@
 # GRPCMicroService
 
-A reusable Java starter kit for building gRPC microservices with Micronaut and Protocol Buffers.
+**A Java 21 and Micronaut 4 starter kit for building gRPC microservices.**
 
-**Want to get started?** Get the complete starter kit and start exploring a working Java gRPC project.
+GRPCMicroService provides a working example of gRPC service development with Java, Micronaut, and Protocol Buffers. It includes a service, a client, centralized error handling, automated tests, and Maven build configuration.
 
-**[Get the Complete Starter Kit](https://frekost.gumroad.com/l/grpc2micronaut)** · **[Quick Start Guide](https://frekost.github.io/grpc-micronaut-starter-kit/quick-start/)**
+<p align="center">
+  <a href="https://frekost.gumroad.com/l/grpc2micronaut">
+    <strong>Get the Complete Starter Kit</strong>
+  </a>
+  &nbsp; · &nbsp;
+  <a href="https://frekost.github.io/grpc-micronaut-starter-kit/quick-start/">
+    Quick Start Guide
+  </a>
+</p>
+
+---
 
 ## Overview
 
-This project demonstrates a Micronaut gRPC application, including:
+The project demonstrates the essential components of a Java gRPC microservice:
 
-- Java 21 and Micronaut 4.
-- gRPC service and client implementation.
-- Protocol Buffers code generation.
-- Centralized gRPC error handling.
-- Automated integration tests.
-- Maven-based build.
+- **Java 21** — Modern Java development.
+- **Micronaut 4** — Application framework and dependency injection.
+- **gRPC** — Remote procedure calls between services.
+- **Protocol Buffers** — Service contracts and message definitions.
+- **Error handling** — Centralized gRPC error handling.
+- **Automated tests** — Tests for application behavior.
+- **Maven** — Dependency management, code generation, and build lifecycle.
 
 ## Requirements
+
+Make sure you have the following installed:
 
 - JDK 21
 - Apache Maven
@@ -31,31 +44,47 @@ mvn -version
 
 ## Quick Start
 
-Build the project and run the configured verification lifecycle:
+### 1. Get the Project
+
+Get the complete starter kit:
+
+**[Download GRPCMicroService](https://frekost.gumroad.com/l/grpc2micronaut)**
+
+### 2. Build and Verify
+
+Open a terminal in the project directory and run:
 
 ```bash
 mvn clean compile verify
 ```
 
-To start the application, run `org.frekost.micro.Application` from your IDE.
+### 3. Run the Application
+
+Start the application by running the following main class from your IDE:
+
+```text
+org.frekost.micro.Application
+```
+
+For detailed setup instructions, see the **[Quick Start Guide](https://frekost.github.io/grpc-micronaut-starter-kit/quick-start/)**.
 
 ## Documentation
 
-For the complete technical documentation, including project structure, configuration, error handling, testing, build instructions, and troubleshooting, see:
+The technical documentation covers the project architecture, implementation, configuration, and testing.
 
-**[Documentation Index](docs/README.md)**
+**[Read the Documentation](docs/README.md)**
 
-For a visual, step-by-step introduction to the project, see:
+For a visual, step-by-step introduction:
 
-**[Quick Start Guide](https://frekost.github.io/grpc-micronaut-starter-kit/quick-start/)**
+**[Open the Quick Start Guide](https://frekost.github.io/grpc-micronaut-starter-kit/quick-start/)**
 
 ## Get the Complete Starter Kit
 
-Get the complete GRPCMicroService starter kit:
+Ready to explore the complete project?
 
 **[Get GRPCMicroService on Gumroad](https://frekost.gumroad.com/l/grpc2micronaut)**
 
-GRPCMicroService is a paid software starter kit. Use and modification are subject to the included license terms.
+The starter kit is paid software. Use and modification are subject to the included license terms.
 
 ## License
 
